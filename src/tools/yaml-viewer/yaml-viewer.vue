@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n';
 import { formatYaml } from './yaml-models';
 import { useYamlSchemaValidation } from './useYamlSchemaValidation';
 import TextareaCopyable from '@/components/TextareaCopyable.vue';
-import { useITStorage, useQueryParamOrStorage } from '@/composable/queryParams';
+import { useITStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
@@ -30,7 +30,7 @@ const MONACO_EDITOR_OPTIONS = {
   formatOnPaste: true,
 };
 
-const schemaUrl = useQueryParamOrStorage({ name: 'schema', storageName: 'yaml-prettify:schema', defaultValue: '' });
+const schemaUrl = useITStorage<string>('yaml-prettify:schema', '');
 const { schemas, errors: validationErrors } = useYamlSchemaValidation({ yaml: rawYaml, schemaUrl, schemaData });
 </script>
 

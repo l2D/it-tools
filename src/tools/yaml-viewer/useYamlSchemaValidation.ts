@@ -1,5 +1,5 @@
 import { type Schema } from 'jsonschema';
-import { isRef, onBeforeMount, ref, watch } from 'vue';
+import { isRef, ref, watch } from 'vue';
 import { type MaybeRef, get } from '@vueuse/core';
 import YAML from 'yaml';
 import Ajv from 'ajv';
@@ -30,12 +30,6 @@ export function useYamlSchemaValidation({
   const schemas = ref<SchemaStore[]>([]);
   const schema = ref<Schema | null>(null);
   const errors = ref<string[]>([]);
-
-  onBeforeMount(async () => {
-    const catalog = await fetch('https://www.schemastore.org/api/json/catalog.json');
-    const catalogJson: { $schemaUrl: string; schemas: SchemaStore[]; version: number } = await catalog.json();
-    schemas.value = catalogJson.schemas;
-  });
 
   watch(
     [schemaUrl, schemaData].filter(isRef),

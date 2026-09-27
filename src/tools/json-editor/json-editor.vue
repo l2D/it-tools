@@ -19,7 +19,7 @@ import {
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css';
 import { jsonrepair } from 'jsonrepair';
 import { useJsonSchemaValidation } from '../json-viewer/useJsonSchemaValidation';
-import { useITStorage, useQueryParamOrStorage } from '@/composable/queryParams';
+import { useITStorage } from '@/composable/queryParams';
 import { useStyleStore } from '@/stores/style.store';
 
 const { t } = useI18n();
@@ -49,11 +49,7 @@ const jsonSchemaInputElement = ref<HTMLElement>();
 const schemaData = useITStorage('json-editor:schema-data', '');
 const autoHeight = useITStorage('json-editor:auto-height', false);
 
-const schemaUrl = useQueryParamOrStorage<string>({
-  name: 'schema',
-  storageName: 'json-editor:schema',
-  defaultValue: '',
-});
+const schemaUrl = useITStorage<string>('json-editor:schema', '');
 const { schemas, errors: validationErrors } = useJsonSchemaValidation({ json: jsonText, schemaUrl, schemaData });
 
 function tryAutoRepair() {

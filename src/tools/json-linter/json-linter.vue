@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n';
 import linter from 'jsonlint-mod';
 import { jsonrepair } from 'jsonrepair';
 import { useJsonSchemaValidation } from '../json-viewer/useJsonSchemaValidation';
-import { useITStorage, useQueryParamOrStorage } from '@/composable/queryParams';
+import { useITStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
@@ -32,11 +32,7 @@ const MONACO_EDITOR_OPTIONS = {
   formatOnPaste: true,
 };
 
-const schemaUrl = useQueryParamOrStorage<string>({
-  name: 'schema',
-  storageName: 'json-linter:schema',
-  defaultValue: '',
-});
+const schemaUrl = useITStorage<string>('json-linter:schema', '');
 const { schemas, errors: validationErrors } = useJsonSchemaValidation({ json: jsonContent, schemaUrl, schemaData });
 
 const indentSize = useITStorage('json-linter:indent-size', 3);

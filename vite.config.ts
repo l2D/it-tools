@@ -141,6 +141,9 @@ export default defineConfig({
         // Relative, like every other precache entry: workbox resolves them against the
         // service worker's own URL, so the same sw.js works under any deployment path.
         navigateFallback: 'index.html',
+        // The /source page is a plain file the deployment adds next to the build; it
+        // has to reach the network, or the shell above would answer for it.
+        navigateFallbackDenylist: [/\/source(\/|\/index\.html)?$/],
         runtimeCaching: [
           {
             urlPattern: ({ sameOrigin, request }) =>

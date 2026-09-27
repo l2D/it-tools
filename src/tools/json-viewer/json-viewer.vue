@@ -5,7 +5,7 @@ import { formatJson } from './json.models';
 import { useJsonSchemaValidation } from './useJsonSchemaValidation';
 import { withDefaultOnError } from '@/utils/defaults';
 import { useValidation } from '@/composable/validation';
-import { useITStorage, useQueryParamOrStorage } from '@/composable/queryParams';
+import { useITStorage } from '@/composable/queryParams';
 
 const { t } = useI18n();
 
@@ -45,11 +45,7 @@ const rawJsonValidation = useValidation({
   watch: [repairJson, unescapeUnicode, unescapeJsonString],
 });
 
-const schemaUrl = useQueryParamOrStorage<string>({
-  name: 'schema',
-  storageName: 'json-prettify:schema',
-  defaultValue: '',
-});
+const schemaUrl = useITStorage<string>('json-prettify:schema', '');
 const { schemas, errors: validationErrors } = useJsonSchemaValidation({ json: rawJson, schemaUrl, schemaData });
 </script>
 
